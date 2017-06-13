@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Javascript Design Patterns</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <style>
+            code {
+                white-space: pre-wrap;       /* css-3 */
+                white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+                white-space: -pre-wrap;      /* Opera 4-6 */
+                white-space: -o-pre-wrap;    /* Opera 7 */
+                word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Javascript Design Patterns</h1>
+            <h3></h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="" title="Module Pattern">Module Pattern</a></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col md-4 col-sm-4">
+                            <h4>Revealing Module Pattern</h4>
+                            <p><strong>Exposer.first();</strong> <span id="js-module-first"></span></p>
+                            <p><strong>Exposer.second();</strong> <span id="js-module-second"></span></p>
+                            <p><strong>Exposer.methodToExpose;</strong> <span id="js-module-methodToExpose"></span></p>
+                        </div>
+                        <div class="col md-8 col-sm-8">
+                            <code>var Exposer = (function() {
+    var privateVariable = 10;
+    var privateMethod = function() {
+        var increment = privateVariable + 1;
+        return 'Inside a private method!: ' + increment;
+    }
+    var methodToExpose = function() {
+        return 'This is a method I want to expose!';
+    }
+    var otherMethodIWantToExpose = function() {
+        return privateMethod();
+    }
+    return {
+        first: methodToExpose,
+        second: otherMethodIWantToExpose
+    };
+})();</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="" title="Prototype Pattern">Prototype Pattern</a></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col md-4 col-sm-4">
+                            <h4>Revealing Prototype Pattern</h4>
+                            <p><strong>car.numWheels;</strong> <span id="js-prototype-first"></span></p>
+                            <p><strong>car.pressGasPedal();</strong> <span id="js-prototype-second"></span></p>
+                            <p><strong>car.pressBrakePedal();</strong> <span id="js-prototype-third"></span></p>
+                        </div>
+                        <div class="col md-8 col-sm-8">
+                            <code>var TeslaModelS = function() {
+    this.numWheels    = 4;
+    this.manufacturer = 'Tesla';
+    this.make         = 'Model S';
+}
+TeslaModelS.prototype = function() {
+    var go = function() {
+        return 'Rotate wheels ' + this.numWheels;
+    };
+    var stop = function() {
+        return 'Apply brake pads';
+    };
+    return {
+        pressGasPedal: go,
+        pressBrakePedal: stop
+    }
+}();
+var car = new TeslaModelS();</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="" title="Observer Pattern">Observer Pattern</a></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col md-4 col-sm-4">
+                        </div>
+                        <div class="col md-4 col-sm-4">
+                            <code></code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="" title="Singleton Pattern">Singleton Pattern</a></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col md-4 col-sm-4">
+                        </div>
+                        <div class="col md-4 col-sm-4">
+                            <code></code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="" title=""></a></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col md-4 col-sm-4">
+                        </div>
+                        <div class="col md-4 col-sm-4">
+                            <code></code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Bibliografía</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col md-12 col-sm-12">
+                            <ul>
+                                <li><a href="https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know" title="4 JavaScript Design Patterns You Should Know">4 JavaScript Design Patterns You Should Know</a></li>
+                                <li><a href="" title=""></a></li>
+                                <li><a href="" title=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="assets/js/module.js"></script>
+        <script src="assets/js/prototype.js"></script>
+    </body>
+</html>
