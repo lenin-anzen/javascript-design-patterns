@@ -18,8 +18,11 @@
     </head>
     <body>
         <div class="container">
-            <h1>Javascript Design Patterns</h1>
-            <h3></h3>
+            <div class="jumbotron">
+                <h1>Javascript - ECMAScript 5</h1>
+                <h3>Javascript Design Patterns</h3>
+                <p>Un patrón es una solución reutilizable para un problema común en el diseño de software, en este caso, una aplicación de JavaScript.</p>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><a href="" title="Module Pattern">Module Pattern</a></h3>
@@ -162,12 +165,20 @@ subject.subscribeObserver(observer4);</code>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col md-4 col-sm-4">
-                            <button id="js-singleton-turnon" class="btn btn-primary" onclick="officePrinter1.turnOn(!officePrinter1.getIsTurnedOn())">Encender impresora</button>
-                            <hr>
+                            <h4>Primera instancia</h4>
+                            <p><i>officePrinter1</i></p>
+                            <button id="js-singleton-turnon" class="btn btn-primary" onclick="officePrinter1.turnOn(!officePrinter1.getIsTurnedOn(1), 1)">Encender impresora</button>
+                            <p>&nbsp;</p>
                             <button id="js-singleton-print" class="btn btn-info" onclick="officePrinter1.print()" disabled="true">Imprimir</button>
-                            <hr>
+                            <p>&nbsp;</p>
                             <p>¿Está encencida la impresora?</p>
-                            <p id="js-singleton-getisturnedon"></p>
+                            <p id="js-singleton-getisturnedon-1"></p>
+                            <hr>
+                            <h4>Segunda instancia</h4>
+                            <p><i>officePrinter2</i></p>
+                            <button class="btn btn-info" onclick="officePrinter2.getIsTurnedOn(2)">Obtener valor <i>turnedOn</i></button>
+                            <p>¿Está encencida la impresora?</p>
+                            <p id="js-singleton-getisturnedon-2"></p>
                         </div>
                         <div class="col md-8 col-sm-8">
                             <code>var printer = (function () {
@@ -181,15 +192,15 @@ subject.subscribeObserver(observer4);</code>
                 alert('Debes prender la impresora!');
             }
         }
-        function turnOn( value ) {
+        function turnOn( value, index ) {
             turnedOn = value;
             var buttonLabel = (value) ? 'Apagar impresora' : 'Encender impresora' ;
             document.getElementById('js-singleton-turnon').innerHTML = buttonLabel;
             document.getElementById('js-singleton-print').disabled = !value;
-            getIsTurnedOn();
+            getIsTurnedOn(index);
         }
-        function getIsTurnedOn() {
-            document.getElementById('js-singleton-getisturnedon').innerHTML = turnedOn;
+        function getIsTurnedOn(index) {
+            document.getElementById('js-singleton-getisturnedon-'+index).innerHTML = turnedOn;
             return turnedOn;
         }
         return {
@@ -208,25 +219,62 @@ subject.subscribeObserver(observer4);</code>
         }
     };
 })();
-
 var officePrinter1 = printer.getInstance();
-var officePrinter2 = printer.getInstance();
-
-officePrinter1.getIsTurnedOn();</code>
+var officePrinter2 = printer.getInstance();</code>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><a href="" title=""></a></h3>
+                    <h3 class="panel-title"><a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book/#factorypatternjavascript" title="Factory Pattern">Factory Pattern</a></h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col md-4 col-sm-4">
+                            <p><strong>Compact/corolla:</strong> <span id="js-factory-corolla"></span></p>
+                            <p><strong>Convertible/solstice:</strong> <span id="js-factory-solstice"></span></p>
+                            <p><strong>SUV/cherokee:</strong> <span id="js-factory-cherokee"></span></p>
                         </div>
-                        <div class="col md-4 col-sm-4">
-                            <code></code>
+                        <div class="col md-8 col-sm-8">
+                            <code>// Parent constructor
+function CarMaker() {};
+// A method of the parent
+CarMaker.prototype.drive = function() {
+    return 'I have ' + this.doors + ' doors';
+};
+// the static factory method
+CarMaker.factory = function(type) {
+    var constr = type,
+        newCar;
+    // error if the constructor doesn't exists
+    if(typeof CarMaker[constr] !== 'function') {
+        throw {
+            name: 'Error',
+            message: constr + "doesn't exists"
+        };
+    }
+    // inherit the parent but only once
+    if(typeof CarMaker[constr].prototype.drive !== 'function') {
+        CarMaker[constr].prototype = new CarMaker();
+    }
+    // create new instance
+    newCar = new CarMaker[constr]();
+    return newCar;
+}
+//define specific car makers
+CarMaker.Compact = function() {
+    this.doors = 4;
+}
+CarMaker.Convertible = function() {
+    this.doors = 2;
+}
+CarMaker.SUV = function() {
+    this.doors = 24;
+}
+var corolla = CarMaker.factory('Compact');
+var solstice = CarMaker.factory('Convertible');
+var cherokee = CarMaker.factory('SUV');</code>
                         </div>
                     </div>
                 </div>
@@ -239,9 +287,10 @@ officePrinter1.getIsTurnedOn();</code>
                     <div class="row">
                         <div class="col md-12 col-sm-12">
                             <ul>
-                                <li><a href="https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know" title="4 JavaScript Design Patterns You Should Know">4 JavaScript Design Patterns You Should Know</a></li>
-                                <li><a href="" title=""></a></li>
-                                <li><a href="" title=""></a></li>
+                                <li><a href="https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know" title="4 JavaScript Design Patterns You Should Know" target="_blank">4 JavaScript Design Patterns You Should Know</a></li>
+                                <li><a href="https://seesparkbox.com/foundry/javascript_design_patterns" title="JavaScript: Design Patterns" target="_blank">JavaScript: Design Patterns</a></li>
+                                <li><a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book/#designpatternsjavascript" target="_blank" title="JavaScript Design Patterns">Learning JavaScript Design Patterns by Addy Osmani</a></li>
+                                <li><a href="https://github.com/KleoPetroff/javascript-design-patterns" target="_blank" title="Educational list of Javascript Design Patterns">Educational list of Javascript Design Patterns</a></li>
                             </ul>
                         </div>
                     </div>
@@ -253,5 +302,6 @@ officePrinter1.getIsTurnedOn();</code>
         <script src="assets/js/prototype.js"></script>
         <script src="assets/js/observer.js"></script>
         <script src="assets/js/singleton.js"></script>
+        <script src="assets/js/factory.js"></script>
     </body>
 </html>

@@ -11,15 +11,15 @@ var printer = (function () {
                 alert('Debes prender la impresora!');
             }
         }
-        function turnOn( value ) {
+        function turnOn( value, index ) {
             turnedOn = value;
             var buttonLabel = (value) ? 'Apagar impresora' : 'Encender impresora' ;
             document.getElementById('js-singleton-turnon').innerHTML = buttonLabel;
             document.getElementById('js-singleton-print').disabled = !value;
-            getIsTurnedOn();
+            getIsTurnedOn(index);
         }
-        function getIsTurnedOn() {
-            document.getElementById('js-singleton-getisturnedon').innerHTML = turnedOn;
+        function getIsTurnedOn(index) {
+            document.getElementById('js-singleton-getisturnedon-'+index).innerHTML = turnedOn;
             return turnedOn;
         }
         return {
@@ -42,4 +42,5 @@ var printer = (function () {
 var officePrinter1 = printer.getInstance();
 var officePrinter2 = printer.getInstance();
 
-officePrinter1.getIsTurnedOn();
+officePrinter1.getIsTurnedOn(1);
+officePrinter1.getIsTurnedOn(2);
