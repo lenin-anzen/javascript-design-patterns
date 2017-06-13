@@ -1,31 +1,31 @@
 'use strict';
 
 var Subject = function() {
-    var observers = [];
-    return {
-        subscribeObserver: function(observer) {
-            observers.push(observer);
-        },
-        unsubscribeObserver: function(observer) {
-            var index = observers.indexOf(observer);
-            if (index > -1) {
-                observers.splice(index, 1);
-            }
-        },
-        notifyObserver: function(observer) {
-            var index = observers.indexOf(observer);
-            if (index > -1) {
-                return observers[index].notify(index);
-            }
-        },
-        notifyAllObservers: function() {
-            var notifications = [];
-            for (var i = 0; i < observers.length; i++) {
-                notifications.push(observers[i].notify(i));
-            };
-            return notifications;
+    this.observers = [];
+}
+Subject.prototype = {
+    subscribeObserver: function(observer) {
+        this.observers.push(observer);
+    },
+    unsubscribeObserver: function(observer) {
+        var index = this.observers.indexOf(observer);
+        if (index > -1) {
+            this.observers.splice(index, 1);
         }
-    };
+    },
+    notifyObserver: function(observer) {
+        var index = this.observers.indexOf(observer);
+        if (index > -1) {
+            return this.observers[index].notify(index);
+        }
+    },
+    notifyAllObservers: function() {
+        var notifications = [];
+        for (var i = 0; i < this.observers.length; i++) {
+            notifications.push(this.observers[i].notify(i));
+        };
+        return notifications;
+    }
 };
 var Observer = function(value) {
     var number = value;

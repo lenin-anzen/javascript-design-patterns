@@ -106,31 +106,31 @@ var car = new TeslaModelS();</code>
                         </div>
                         <div class="col md-8 col-sm-8">
                             <code>var Subject = function() {
-    var observers = [];
-    return {
-        subscribeObserver: function(observer) {
-            observers.push(observer);
-        },
-        unsubscribeObserver: function(observer) {
-            var index = observers.indexOf(observer);
-            if (index > -1) {
-                observers.splice(index, 1);
-            }
-        },
-        notifyObserver: function(observer) {
-            var index = observers.indexOf(observer);
-            if (index > -1) {
-                return observers[index].notify(index);
-            }
-        },
-        notifyAllObservers: function() {
-            var notifications = [];
-            for (var i = 0; i < observers.length; i++) {
-                notifications.push(observers[i].notify(i));
-            };
-            return notifications;
+    this.observers = [];
+}
+Subject.prototype = {
+    subscribeObserver: function(observer) {
+        this.observers.push(observer);
+    },
+    unsubscribeObserver: function(observer) {
+        var index = this.observers.indexOf(observer);
+        if (index > -1) {
+            this.observers.splice(index, 1);
         }
-    };
+    },
+    notifyObserver: function(observer) {
+        var index = this.observers.indexOf(observer);
+        if (index > -1) {
+            return this.observers[index].notify(index);
+        }
+    },
+    notifyAllObservers: function() {
+        var notifications = [];
+        for (var i = 0; i < this.observers.length; i++) {
+            notifications.push(this.observers[i].notify(i));
+        };
+        return notifications;
+    }
 };
 var Observer = function(value) {
     var number = value;
@@ -162,9 +162,57 @@ subject.subscribeObserver(observer4);</code>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col md-4 col-sm-4">
+                            <button id="js-singleton-turnon" class="btn btn-primary" onclick="officePrinter1.turnOn(!officePrinter1.getIsTurnedOn())">Encender impresora</button>
+                            <hr>
+                            <button id="js-singleton-print" class="btn btn-info" onclick="officePrinter1.print()" disabled="true">Imprimir</button>
+                            <hr>
+                            <p>¿Está encencida la impresora?</p>
+                            <p id="js-singleton-getisturnedon"></p>
                         </div>
-                        <div class="col md-4 col-sm-4">
-                            <code></code>
+                        <div class="col md-8 col-sm-8">
+                            <code>var printer = (function () {
+    var printerInstance;
+    var turnedOn = false;
+    function create () {
+        function print() {
+            if ( turnedOn === true ) {
+                window.print();
+            } else {
+                alert('Debes prender la impresora!');
+            }
+        }
+        function turnOn( value ) {
+            turnedOn = value;
+            var buttonLabel = (value) ? 'Apagar impresora' : 'Encender impresora' ;
+            document.getElementById('js-singleton-turnon').innerHTML = buttonLabel;
+            document.getElementById('js-singleton-print').disabled = !value;
+            getIsTurnedOn();
+        }
+        function getIsTurnedOn() {
+            document.getElementById('js-singleton-getisturnedon').innerHTML = turnedOn;
+            return turnedOn;
+        }
+        return {
+            // public + private states and behaviors
+            print: print,
+            turnOn: turnOn,
+            getIsTurnedOn: getIsTurnedOn
+        };
+    }
+    return {
+        getInstance: function() {
+            if(!printerInstance) {
+                printerInstance = create();
+            }
+            return printerInstance;
+        }
+    };
+})();
+
+var officePrinter1 = printer.getInstance();
+var officePrinter2 = printer.getInstance();
+
+officePrinter1.getIsTurnedOn();</code>
                         </div>
                     </div>
                 </div>
@@ -204,5 +252,6 @@ subject.subscribeObserver(observer4);</code>
         <script src="assets/js/module.js"></script>
         <script src="assets/js/prototype.js"></script>
         <script src="assets/js/observer.js"></script>
+        <script src="assets/js/singleton.js"></script>
     </body>
 </html>
