@@ -1,25 +1,28 @@
 'use strict';
 
-var Exposer = (function() {
-    var privateVariable = 10;
-    var privateMethod = function() {
-        var increment = privateVariable + 1;
+let Exposer = (function() {
+    let privateVariable = 10;
+    let privateMethod = function() {
+        let increment = privateVariable + 1;
         return 'Inside a private method!: ' + increment;
-    }
-    var methodToExpose = function() {
+    };
+    let methodToExpose = function() {
         return 'This is a method I want to expose!';
-    }
-    var otherMethodIWantToExpose = function() {
+    };
+    let otherMethodIWantToExpose = function() {
         return privateMethod();
-    }
+    };
     return {
         first: methodToExpose,
-        second: otherMethodIWantToExpose
+        second: otherMethodIWantToExpose,
     };
 })();
 // Output: This is a method I want to expose!
-document.getElementById("js-module-first").innerHTML = Exposer.first();
+let jsMF = document.getElementById('js-module-first');
+jsMF.innerHTML = Exposer.first();
 // Output: Inside a private method!
-document.getElementById("js-module-second").innerHTML = Exposer.second();
+let jsMS = document.getElementById('js-module-second');
+jsMS.innerHTML = Exposer.second();
 // undefined
-document.getElementById("js-module-methodToExpose").innerHTML = Exposer.methodToExpose;
+let jsMMTE = document.getElementById('js-module-methodToExpose');
+jsMMTE.innerHTML = Exposer.methodToExpose;

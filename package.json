@@ -1,0 +1,27 @@
+{
+  "name": "javascript-design-patterns",
+  "version": "1.0.0",
+  "description": "Patrones de diseño en Javascript",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lenin-anzen/javascript-design-patterns.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lenin-anzen/javascript-design-patterns/issues"
+  },
+  "homepage": "https://github.com/lenin-anzen/javascript-design-patterns#readme",
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-config-google": "^0.8.0"
+  }
+}

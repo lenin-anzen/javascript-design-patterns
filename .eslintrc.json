@@ -1,0 +1,16 @@
+{
+    "extends": "google",
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "no-invalid-this": "off",
+        "no-new-object": "off",
+        "require-jsdoc": "off",
+        "prefer-rest-params": "off",
+        "no-throw-literal": "off"
+    }
+}
